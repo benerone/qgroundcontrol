@@ -829,9 +829,9 @@ void Vehicle::_mavlinkMessageReceived(LinkInterface* link, mavlink_message_t mes
     case MAVLINK_MSG_ID_STATUSTEXT:
         _handleStatusText(message, false /* longVersion */);
         break;
-    case MAVLINK_MSG_ID_STATUSTEXT_LONG:
-        _handleStatusText(message, true /* longVersion */);
-        break;
+    /*case MAVLINK_MSG_ID_STATUSTEXT_LONG:
+        _handleStatusText(message, true /* longVersion *///);
+       // break;
     case MAVLINK_MSG_ID_ORBIT_EXECUTION_STATUS:
         _handleOrbitExecutionStatus(message);
         break;
@@ -943,11 +943,16 @@ void Vehicle::_handleStatusText(mavlink_message_t& message, bool longVersion)
     int         severity;
 
     if (longVersion) {
-        b.resize(MAVLINK_MSG_STATUSTEXT_LONG_FIELD_TEXT_LEN+1);
+        /*b.resize(MAVLINK_MSG_STATUSTEXT_LONG_FIELD_TEXT_LEN+1);
         mavlink_statustext_long_t statustextLong;
         mavlink_msg_statustext_long_decode(&message, &statustextLong);
         strncpy(b.data(), statustextLong.text, MAVLINK_MSG_STATUSTEXT_LONG_FIELD_TEXT_LEN);
-        severity = statustextLong.severity;
+        severity = statustextLong.severity;*/
+        b.resize(MAVLINK_MSG_STATUSTEXT_FIELD_TEXT_LEN+1);
+        mavlink_statustext_t statustext;
+        mavlink_msg_statustext_decode(&message, &statustext);
+        strncpy(b.data(), statustext.text, MAVLINK_MSG_STATUSTEXT_FIELD_TEXT_LEN);
+        severity = statustext.severity;
     } else {
         b.resize(MAVLINK_MSG_STATUSTEXT_FIELD_TEXT_LEN+1);
         mavlink_statustext_t statustext;

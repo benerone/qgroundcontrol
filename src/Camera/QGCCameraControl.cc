@@ -1184,7 +1184,7 @@ QGCCameraControl::_requestAllParameters()
         _vehicle->priorityLink()->mavlinkChannel(),
         &msg,
         static_cast<uint8_t>(_vehicle->id()),
-        static_cast<uint8_t>(compID()));
+        static_cast<uint8_t>(compID()),0);
     _vehicle->sendMessageOnLink(_vehicle->priorityLink(), msg);
     qCDebug(CameraControlVerboseLog) << "Request all parameters";
 }

@@ -1065,7 +1065,8 @@ void MockLink::_sendGpsRawInt(void)
                                       0,                                    // Position uncertainty in meters * 1000 (positive for up).
                                       0,                                    // Altitude uncertainty in meters * 1000 (positive for up).
                                       0,                                    // Speed uncertainty in meters * 1000 (positive for up).
-                                      0);                                   // Heading / track uncertainty in degrees * 1e5.
+                                      0,                                    // Heading / track uncertainty in degrees * 1e5.
+                                      0);
     respondWithMavlinkMessage(msg);
 }
 
@@ -1097,16 +1098,16 @@ void MockLink::_sendStatusTextMessages(void)
                                          _mavlinkChannel,
                                          &msg,
                                          status->severity,
-                                         status->msg);
+                                         status->msg,0,0);
         respondWithMavlinkMessage(msg);
 
-        mavlink_msg_statustext_long_pack_chan(_vehicleSystemId,
+        /*mavlink_msg_statustext_long_pack_chan(_vehicleSystemId,
                                               _vehicleComponentId,
                                               _mavlinkChannel,
                                               &msg,
                                               status->severity,
                                               status->msg);
-        respondWithMavlinkMessage(msg);
+        respondWithMavlinkMessage(msg);*/
     }
 }
 
@@ -1280,7 +1281,7 @@ void MockLink::_handlePreFlightCalibration(const mavlink_command_long_t& request
                                      _mavlinkChannel,
                                      &msg,
                                      MAV_SEVERITY_INFO,
-                                     pCalMessage);
+                                     pCalMessage,0,0);
     respondWithMavlinkMessage(msg);
 }
 

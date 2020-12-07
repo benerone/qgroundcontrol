@@ -363,7 +363,7 @@ QGCCameraParamIO::paramRequest(bool reset)
         static_cast<uint8_t>(_vehicle->id()),
         static_cast<uint8_t>(_control->compID()),
         param_id,
-        -1);
+        -1,0);
     _vehicle->sendMessageOnLink(_vehicle->priorityLink(), msg);
     _paramRequestTimer.start();
 }

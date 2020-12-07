@@ -346,7 +346,8 @@ bool APMFirmwarePlugin::_handleIncomingStatusText(Vehicle* vehicle, mavlink_mess
 
     int severity;
     if (longVersion) {
-        severity = mavlink_msg_statustext_long_get_severity(message);
+        //severity = mavlink_msg_statustext_long_get_severity(message);
+         severity = mavlink_msg_statustext_get_severity(message);
     } else {
         severity = mavlink_msg_statustext_get_severity(message);
     }
@@ -500,8 +501,8 @@ bool APMFirmwarePlugin::adjustIncomingMavlinkMessage(Vehicle* vehicle, mavlink_m
             break;
         case MAVLINK_MSG_ID_STATUSTEXT:
             return _handleIncomingStatusText(vehicle, message, false /* longVersion */);
-        case MAVLINK_MSG_ID_STATUSTEXT_LONG:
-            return _handleIncomingStatusText(vehicle, message, true /* longVersion */);
+        //case MAVLINK_MSG_ID_STATUSTEXT_LONG:
+        //    return _handleIncomingStatusText(vehicle, message, true /* longVersion */);
         case MAVLINK_MSG_ID_RC_CHANNELS:
             _handleRCChannels(vehicle, message);
             break;
@@ -528,8 +529,10 @@ QString APMFirmwarePlugin::_getMessageText(mavlink_message_t* message, bool long
     QByteArray b;
 
     if (longVersion) {
-        b.resize(MAVLINK_MSG_STATUSTEXT_LONG_FIELD_TEXT_LEN+1);
-        mavlink_msg_statustext_long_get_text(message, b.data());
+        //b.resize(MAVLINK_MSG_STATUSTEXT_LONG_FIELD_TEXT_LEN+1);
+        //mavlink_msg_statustext_long_get_text(message, b.data());
+        b.resize(MAVLINK_MSG_STATUSTEXT_FIELD_TEXT_LEN+1);
+        mavlink_msg_statustext_get_text(message, b.data());
     } else {
         b.resize(MAVLINK_MSG_STATUSTEXT_FIELD_TEXT_LEN+1);
         mavlink_msg_statustext_get_text(message, b.data());
@@ -602,7 +605,7 @@ void APMFirmwarePlugin::_setInfoSeverity(mavlink_message_t* message, bool longVe
     mavlinkStatusReEncode->flags |= MAVLINK_STATUS_FLAG_IN_MAVLINK1;
 
     if (longVersion) {
-        mavlink_statustext_long_t statusTextLong;
+        /*mavlink_statustext_long_t statusTextLong;
         mavlink_msg_statustext_long_decode(message, &statusTextLong);
 
         statusTextLong.severity = MAV_SEVERITY_INFO;
@@ -610,7 +613,16 @@ void APMFirmwarePlugin::_setInfoSeverity(mavlink_message_t* message, bool longVe
                                                 message->compid,
                                                 0,                  // Re-encoding uses reserved channel 0
                                                 message,
-                                                &statusTextLong);
+                                                &statusTextLong); */
+        mavlink_statustext_t statusText;
+        mavlink_msg_statustext_decode(message, &statusText);
+
+        statusText.severity = MAV_SEVERITY_INFO;
+        mavlink_msg_statustext_encode_chan(message->sysid,
+                                           message->compid,
+                                           0,                  // Re-encoding uses reserved channel 0
+                                           message,
+                                           &statusText);
     } else {
         mavlink_statustext_t statusText;
         mavlink_msg_statustext_decode(message, &statusText);
