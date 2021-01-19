@@ -7721,6 +7721,42 @@ default 1.5 turns per second</short_desc>
       <min>-1</min>
       <max>1</max>
     </parameter>
+    <parameter default="1.0" name="RC_PI_COE_PITCH" type="FLOAT">
+      <short_desc>Integrale multiplier for pitch</short_desc>
+      <long_desc>IntegralePWM=1000+500*coef*integrale where -1.0&lt;integrale&lt;1.0</long_desc>
+      <min>-1000</min>
+      <max>1000</max>
+    </parameter>
+    <parameter default="1.0" name="RC_PI_COE_ROLL" type="FLOAT">
+      <short_desc>Integrale multiplier for roll</short_desc>
+      <long_desc>IntegralePWM=1000+500*coef*integrale where -1.0&lt;integrale&lt;1.0</long_desc>
+      <min>-1000</min>
+      <max>1000</max>
+    </parameter>
+    <parameter default="1.0" name="RC_PI_COE_YOW" type="FLOAT">
+      <short_desc>Integrale multiplier for yaw</short_desc>
+      <long_desc>IntegralePWM=1000+500*coef*integrale where -1.0&lt;integrale&lt;1.0</long_desc>
+      <min>-1000</min>
+      <max>1000</max>
+    </parameter>
+    <parameter default="40.0" name="RC_PI_LIM_PITCH" type="FLOAT">
+      <short_desc>Limit of pipe of pitch in PWM</short_desc>
+      <long_desc>Limit of pipe of pitch in PWM</long_desc>
+      <min>-1000</min>
+      <max>1000</max>
+    </parameter>
+    <parameter default="40.0" name="RC_PI_LIM_ROLL" type="FLOAT">
+      <short_desc>Limit of pipe of roll in PWM</short_desc>
+      <long_desc>Limit of pipe of roll in PWM</long_desc>
+      <min>-1000</min>
+      <max>1000</max>
+    </parameter>
+    <parameter default="40.0" name="RC_PI_LIM_YOW" type="FLOAT">
+      <short_desc>Limit of pipe of yaw in PWM</short_desc>
+      <long_desc>Limit of pipe of yaw in PWM</long_desc>
+      <min>-1000</min>
+      <max>1000</max>
+    </parameter>
   </group>
   <group name="Return Mode">
     <parameter default="0" name="RTL_CONE_ANG" type="INT32">
