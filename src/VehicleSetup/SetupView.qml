@@ -73,10 +73,10 @@ Rectangle {
         }
         var autopilotPlugin = QGroundControl.multiVehicleManager.activeVehicle.autopilot
         var prereq = autopilotPlugin.prerequisiteSetup(vehicleComponent)
-        if (prereq !== "") {
+        /*if (prereq !== "") {
             _messagePanelText = qsTr("%1 setup must be completed prior to %2 setup.").arg(prereq).arg(vehicleComponent.name)
             panelLoader.setSourceComponent(messagePanelComponent)
-        } else {
+        } else {*/
             panelLoader.setSource(vehicleComponent.setupSource, vehicleComponent)
             for(var i = 0; i < componentRepeater.count; i++) {
                 var obj = componentRepeater.itemAt(i);
@@ -85,7 +85,7 @@ Rectangle {
                     break;
                 }
             }
-        }
+        //}
     }
 
     Component.onCompleted: showSummaryPanel()
